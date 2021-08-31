@@ -1,3 +1,3 @@
-Member
-Suchindra,Chitnis,Mumbai,Mumbai,Maharashtra,400001,91 9876543210,qwerty.uio@gmail.com
-Abc,Xyz,Bangaore,Bangalore,Karnataka,500060,91 8976543210,abc.xyz@gmail.com
+Members
+Suchindra,Chitnis,Mumbai,Mumbai,Maharashtra,400001,91 9876543210,qwerty.qio@gmail.com
+Abcd,Wxyz,Bangalore,Banglore,Karnataka,500060,91 8976543210,abcd.wxyz@gmail.com

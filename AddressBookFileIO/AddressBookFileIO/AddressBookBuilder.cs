@@ -529,43 +529,14 @@ namespace AddressBookFileIO
         {
             string filePath = @"C:\Users\ADVANCED\Desktop\Day 27 Assignment Problems\AddressBookFileIO\AddressBookFileIO\AddressBook.txt";
 
-            try
+            StreamReader readFile = new StreamReader(filePath);
+            using (readFile)
             {
-                string[] fileContents = File.ReadAllLines(filePath);
-                var currentAbName = fileContents[0];
-                contactDetailsList = new List<ContactDetails>();
-                foreach (string i in fileContents.Skip(1))
+                string datainFile;
+                while ((datainFile = readFile.ReadLine()) != null)
                 {
-                    if (i.Contains(","))
-                    {
-                        ContactDetails person = new ContactDetails();
-                        string[] line = i.Split(",");
-                        person.firstName = line[0];
-                        person.lastName = line[1];
-                        person.address = line[2];
-                        person.city = line[3];
-                        person.state = line[4];
-                        person.zipCode = Convert.ToInt32(line[5]);
-                        person.phoneNumber = line[6];
-                        person.emailid = line[7];
-                        contactDetailsList.Add(person);
-                    }
-                    else
-                    {
-                        addressBook.Add(currentAbName, contactDetailsList);
-                        currentAbName = i;
-                        contactDetailsList = new List<ContactDetails>();
-                    }
-
-
+                    Console.WriteLine(datainFile);
                 }
-                addressBook.Add(currentAbName, contactDetailsList);
-                Console.WriteLine("SuccessFully Added");
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
             }
 
         }
@@ -573,36 +544,24 @@ namespace AddressBookFileIO
         public void WriteToFile()
         {
             string filePath = @"C:\Users\ADVANCED\Desktop\Day 27 Assignment Problems\AddressBookFileIO\AddressBookFileIO\AddressBook.txt";
-
-            try
+            if (addressBook.Count > 0)
             {
-                if (addressBook.Count > 0)
+                File.WriteAllText(filePath, string.Empty);
+                foreach (KeyValuePair<string, List<ContactDetails>> dict in addressBook)
                 {
-                    File.WriteAllText(filePath, string.Empty);
-                    //printing the values in address book
-                    foreach (KeyValuePair<string, List<ContactDetails>> dict in addressBook)
+                    File.AppendAllText(filePath, $"{dict.Key}\n");
+                    foreach (var addressBook in dict.Value)
                     {
-                        File.AppendAllText(filePath, $"{dict.Key}\n");
-                        foreach (var addressBook in dict.Value)
-                        {
-                            string text = $"{addressBook.firstName},{addressBook.lastName},{addressBook.address},{addressBook.city},{addressBook.state},{addressBook.zipCode},{addressBook.phoneNumber},{addressBook.emailid}\n";
-                            File.AppendAllText(filePath, text);
-                        }
+                        string text = $"{addressBook.firstName},{addressBook.lastName},{addressBook.address},{addressBook.city},{addressBook.state},{addressBook.zipCode},{addressBook.phoneNumber},{addressBook.emailid}\n";
+                        File.AppendAllText(filePath, text);
                     }
+                }
                     Console.WriteLine("successfully stored in file");
-                }
-                else
-                {
-                    Console.WriteLine("Address Book is Empty");
-                }
-
-
             }
-            catch (Exception ex)
+            else
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Address Book is Empty");
             }
-
         }
     }
 }
